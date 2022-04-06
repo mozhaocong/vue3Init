@@ -15,7 +15,7 @@ const CancelToken = axios.CancelToken
 // axios 实例
 const instance = axios.create({
 	timeout: 10000,
-	responseType: 'json'
+	responseType: 'json',
 })
 
 // 移除重复请求
@@ -49,7 +49,7 @@ instance.interceptors.request.use(
 	},
 	(error) => {
 		return Promise.reject(error)
-	}
+	},
 )
 
 // 添加响应拦截器
@@ -117,8 +117,8 @@ instance.interceptors.response.use(
 		}
 
 		// eslint-disable-next-line
-    return Promise.reject(response || {message: error.message});
-	}
+        return Promise.reject(response || {message: error.message});
+	},
 )
 
 export default instance
