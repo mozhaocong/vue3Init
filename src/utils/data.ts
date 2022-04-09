@@ -1,9 +1,5 @@
 import { isNil } from 'ramda'
 
-export function clone(data: any) {
-	return JSON.parse(JSON.stringify(data))
-}
-
 export function ArrayKeyToObjet(list: Array<ObjectMap>, key: string): ObjectMap {
 	const data: ObjectMap = {}
 	list.forEach((item) => {

@@ -1,4 +1,6 @@
-import { message, notification } from 'ant-design-vue'
+import { isTrue, isString } from './typeJudgment'
+
+import { message } from 'ant-design-vue'
 
 // 复制文字
 export function copyText(text: string) {
@@ -13,6 +15,4 @@ export function copyText(text: string) {
 	return res
 }
 
-export function isString(item: any): item is string {
-	return Object.prototype.toString.call(item) == '[object String]'
-}
+export { isTrue, isString }
