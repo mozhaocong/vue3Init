@@ -1,13 +1,12 @@
 import { defineComponent } from 'vue'
 import { Button } from 'ant-design-vue'
 export default defineComponent({
-	name: 'layout',
+	name: 'test',
 	setup() {
 		const data = {
 			a: 2,
 			dL: 3,
 		}
-		console.log(data)
 		return () => <Button type="primary">789</Button>
 	},
 })

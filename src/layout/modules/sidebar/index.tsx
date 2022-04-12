@@ -1,9 +1,10 @@
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { isTrue } from '@/utils'
 
 export default defineComponent({
 	name: 'Sidebar',
 	setup() {
+		const collapsed = ref(false)
 		const SidebarList = [
 			{ title: 'A', name: 'A', path: '/a' },
 			{
@@ -31,8 +32,8 @@ export default defineComponent({
 		}
 
 		return () => (
-			<a-layout-sider>
-				<a-menu mode="inline" style={{ height: '100%', borderRight: 0 }}>
+			<a-layout-sider collapse={collapsed.value} collapsible>
+				<a-menu theme="dark" mode="inline" style={{ height: '100%', borderRight: 0 }}>
 					{setSidebarItem(SidebarList)}
 				</a-menu>
 			</a-layout-sider>
