@@ -21,6 +21,11 @@ const routes: Array<RouteRecordRaw> = [
 			},
 		],
 	},
+	{
+		path: '/login',
+		name: 'login',
+		component: () => import('@/views/login/index'),
+	},
 ]
 const router = createRouter({
 	history,
