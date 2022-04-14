@@ -3,7 +3,7 @@
  * @Author: mzc
  * @Date: 2021-08-20 15:30
  */
-import { PropType, ref, defineComponent, h, resolveComponent, renderSlot, onMounted } from 'vue'
+import { PropType, ref, defineComponent, h, resolveComponent, renderSlot, onMounted, App, Plugin, markRaw } from 'vue'
 import { isString } from '@/utils'
 import { is } from 'ramda'
 
@@ -54,8 +54,8 @@ const Props = {
 	finish: Function as PropType<() => void>,
 	finishFailed: Function as PropType<() => void>,
 } as const
-const From = defineComponent({
-	name: 'r-from',
+const _From = defineComponent({
+	name: 'HFrom',
 	props: Props,
 	setup(props, { slots }) {
 		const formRef = ref()
@@ -156,4 +156,9 @@ const From = defineComponent({
 	},
 })
 
-export default From
+_From.install = function (app: App) {
+	app.component(_From.name, _From)
+	return app
+}
+
+export default markRaw(_From) as typeof _From & Plugin

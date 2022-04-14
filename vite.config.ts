@@ -4,8 +4,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import { createStyleImportPlugin, AndDesignVueResolve } from 'vite-plugin-style-import'
 
 // 代理地址
-const target = 'http://mall-dev.app.htwig.com:32007'
-
+const target = 'http://erp_test.admin.htwig.com'
 
 export default defineConfig({
 	css: {
@@ -34,10 +33,10 @@ export default defineConfig({
 		https: false,
 		proxy: {
 			// 代理配置
-			'/v3': {
+			'/erp_test': {
 				target: target,
 				changeOrigin: true,
-				// rewrite: (path) => path.replace(/^\/user/, ''),
+				rewrite: (path) => path.replace(/^\/erp_test/, ''),
 			},
 		},
 	},

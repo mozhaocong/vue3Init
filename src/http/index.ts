@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { setConfigHeaders } from '@/http/request'
 // import qs from 'qs'
 
 export function axiosInit() {
@@ -7,15 +8,16 @@ export function axiosInit() {
 	if (!axios.defaults.headers) {
 		axios.defaults.headers = {}
 	}
-	axios.defaults.headers['Content-Type'] = 'application/json;charset=UTF-8'
+	// axios.defaults.headers['Content-Type'] = 'application/json;charset=UTF-8'
 
 	//允许跨域携带cookie信息
-	axios.defaults.withCredentials = true
+	// axios.defaults.withCredentials = true
 	//设置超时
 	axios.defaults.timeout = 10000
 
 	axios.interceptors.request.use(
 		(config) => {
+			config.headers = { ...setConfigHeaders(), ...config.headers }
 			return config
 		},
 		(error) => {
@@ -25,6 +27,7 @@ export function axiosInit() {
 
 	axios.interceptors.response.use(
 		(response) => {
+			console.log(response)
 			if (response.status == 200) {
 				return Promise.resolve(response)
 			} else {
@@ -43,46 +46,44 @@ export function axiosInit() {
 	)
 }
 
-export default {
-	/**
-	 * @param {String} url
-	 * @param {Object} data
-	 * @returns Promise
-	 */
-	post(url: string, data: any, options = {}) {
-		return new Promise((resolve, reject) => {
-			axios({
-				method: 'post',
-				url,
-				data: data,
-				...options,
-			})
-				.then((res: any) => {
-					if (res.data.status !== 200) {
-						console.log('接口报错')
-					}
-					resolve(res.data)
-				})
-				.catch((err) => {
-					reject(err)
-				})
+/**
+ * @param {String} url
+ * @param {Object} data
+ * @returns Promise
+ */
+export function post(url: string, data: any, options = {}) {
+	return new Promise((resolve, reject) => {
+		axios({
+			method: 'post',
+			url,
+			data: data,
+			...options,
 		})
-	},
+			.then((res: any) => {
+				if (res.status !== 200) {
+					console.log('接口报错')
+				}
+				resolve(res.data)
+			})
+			.catch((err) => {
+				reject(err)
+			})
+	})
+}
 
-	get(url: string, data: any, options = {}): Promise<any> {
-		return new Promise((resolve, reject) => {
-			axios({
-				method: 'get',
-				url,
-				params: data,
-				...options,
-			})
-				.then((res) => {
-					resolve(res.data)
-				})
-				.catch((err) => {
-					reject(err)
-				})
+export function get(url: string, data: any, options = {}): Promise<any> {
+	return new Promise((resolve, reject) => {
+		axios({
+			method: 'get',
+			url,
+			params: data,
+			...options,
 		})
-	},
+			.then((res) => {
+				resolve(res.data)
+			})
+			.catch((err) => {
+				reject(err)
+			})
+	})
 }

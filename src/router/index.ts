@@ -1,4 +1,5 @@
-import { _RouteRecordBase, createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import table from './modules/table'
 const history = createWebHistory()
 
 const routes: Array<RouteRecordRaw> = [
@@ -13,12 +14,6 @@ const routes: Array<RouteRecordRaw> = [
 				meta: { keepAlive: true },
 				component: () => import('@/views/test'),
 			},
-			{
-				path: '/test2',
-				name: 'test2',
-				meta: { keepAlive: true },
-				component: () => import('@/views/test/index2'),
-			},
 		],
 	},
 	{
@@ -26,6 +21,17 @@ const routes: Array<RouteRecordRaw> = [
 		name: 'login',
 		component: () => import('@/views/login/index'),
 	},
+	{
+		path: '/:pathMatch(.*)',
+		//访问主页的时候 重定向到index页面
+		redirect: '/404',
+	},
+	{
+		path: '/404',
+		name: '/404',
+		component: import('@/views/404'),
+	},
+	{ ...table },
 ]
 const router = createRouter({
 	history,

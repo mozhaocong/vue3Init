@@ -5,15 +5,15 @@ import { clone } from 'ramda'
 @Module({ store, name: 'layout', namespaced: true, dynamic: true })
 class Layout extends VuexModule {
 	public collapsed = false
-	public userInfo = {}
+	public layout = 22
 
 	@Action
-	public async setUserInfo(data: ObjectMap) {
-		this.GET_USERINFO(data)
+	public async setUserInfo1(data: ObjectMap) {
+		this.GET_LAYOUT(11)
 	}
 	@Mutation
-	private GET_USERINFO(userInfo: ObjectMap) {
-		this.userInfo = clone(userInfo)
+	public GET_LAYOUT(userInfo: any) {
+		this.layout = clone(userInfo)
 	}
 }
 export const layoutModule = getModule(Layout)

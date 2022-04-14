@@ -1,4 +1,5 @@
 import { isTrue, isString } from './typeJudgment'
+import { deepClone } from './data'
 
 import { message } from 'ant-design-vue'
 
@@ -15,4 +16,4 @@ export function copyText(text: string) {
 	return res
 }
 
-export { isTrue, isString }
+export { isTrue, isString, deepClone }

@@ -16,7 +16,6 @@
     "types": ["webpack-env", "@types/rantion-dto"],
     "paths": {
       "@/*": ["src/*"],
-      "@api/*": ["src/api/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },

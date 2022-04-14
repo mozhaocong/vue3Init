@@ -1,5 +1,7 @@
 import { defineComponent } from 'vue'
 import { Button } from 'ant-design-vue'
+import { erpLogin } from '@/store/modules/erp/login'
+
 export default defineComponent({
 	name: 'test',
 	setup() {
@@ -7,6 +9,6 @@ export default defineComponent({
 			a: 2,
 			dL: 3,
 		}
-		return () => <Button type="primary">789</Button>
+		return () => <Button type="primary">111</Button>
 	},
 })

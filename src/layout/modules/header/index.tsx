@@ -8,7 +8,7 @@ export default defineComponent({
 			if (item.key === '1') {
 				router.push('/test')
 			} else {
-				router.push('/test2')
+				router.push('/login')
 			}
 		}
 		return () => (
