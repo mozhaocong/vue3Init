@@ -25,18 +25,18 @@ const _Table = defineComponent({
 		watch(
 			() => props.dataSource,
 			(value) => {
-				dataSource.value = deepClone(value)
+				dataSource.value = deepClone(value) || []
 			},
 			{ deep: true, immediate: true },
 		)
 		watch(
 			() => props.columns,
 			(value) => {
-				columns.value = deepClone(value)
+				columns.value = deepClone(value) || []
 			},
 			{ deep: true, immediate: true },
 		)
-		return () => <Table dataSource={dataSource.value} columns={columns.value} {...context.attrs} />
+		return () => <Table pagination={false} dataSource={dataSource.value} columns={columns.value} {...context.attrs} />
 	},
 })
 

@@ -151,9 +151,16 @@ const Rsearch = defineComponent({
 					<div class="top-search-from-nowidth top-search-from">
 						{renderSlot(slots, 'header')}
 						<div>
-							<a-form className="ant-advanced-search-form" labelCol={props.labelCol} wrapperCol={props.wrapperCol}>
+							<a-form
+								className="ant-advanced-search-form"
+								labelCol={props.labelCol ?? { span: 8 }}
+								wrapperCol={props.wrapperCol ?? { span: 14 }}
+							>
 								<Row>
 									{rows.value.map((row, index) => {
+										if (!isTrue(row)) {
+											return ''
+										}
 										if (index + 1 > props.lineLength) {
 											if (isTrue(props?.expand?.value)) {
 												if (!props?.expand?.value) {

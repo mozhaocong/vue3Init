@@ -1,6 +1,6 @@
 import { clone, equals } from 'ramda'
 import { Ref, ref, onMounted } from 'vue'
-import { DefaultConfig, getPaginationDto, PageType, usePagination } from './UsePagination'
+import { DefaultConfig, PageType, usePagination } from './UsePagination'
 type ObjectMap<Key extends string | number | symbol = any, Value = any> = {
 	[key in Key]: Value
 }
@@ -17,8 +17,10 @@ interface Options<R, P extends any[]> {
 	paginationKey?: {
 		total: string
 		current: string
+		size: string
 	}
-	getPaginationFilter?: (value: getPaginationDto) => ObjectMap
+	paramsPaginationKey?: ParamsPaginationKey
+	getPaginationFilter?: (value: ObjectMap) => ObjectMap
 	paginationDefaultConfig?: DefaultConfig
 }
 export type noop = (...args: any[]) => void
@@ -32,10 +34,22 @@ export interface FetchResult<R, P extends any[]> {
 	// TODO 如果 options 存在 debounceInterval，或 throttleInterval，则 run 和 refresh 不会返回 Promise。类型需要修复。
 	run: (...args: P) => Promise<R> // 请求,
 }
+
+export interface ParamsPaginationKey {
+	current: string
+	size: string
+}
 const defPaginationKey = {
 	total: 'total',
-	current: 'current',
+	current: 'current_page',
+	size: 'to',
 }
+
+const defParamsPaginationKey: ParamsPaginationKey = {
+	current: 'current_page',
+	size: 'per_page',
+}
+
 // 用于获取 Promise 函数的"解构类型"
 type PromiseReturnType<T extends () => any> = ReturnType<T> extends Promise<infer R> ? R : ReturnType<T>
 
@@ -51,7 +65,11 @@ export function useRequest<T extends (...arg: any) => Promise<any>>(
 	const data = ref({}) as Ref<PromiseReturnType<typeof service>>
 	const error = ref<string | null>(null)
 	type ServiceParam = Parameters<typeof service>
-	const { getPagination, total, renderPagination, current } = usePagination(search, options.paginationDefaultConfig)
+	const { getPagination, total, pageSize, renderPagination, current } = usePagination(
+		search,
+		options.paramsPaginationKey ?? defParamsPaginationKey,
+		options.paginationDefaultConfig,
+	)
 	const params = ref(options?.defaultParams ?? []) as Ref<Parameters<typeof service>>
 	function run(...parm: ServiceParam) {
 		loading.value = true
@@ -68,6 +86,7 @@ export function useRequest<T extends (...arg: any) => Promise<any>>(
 								const paginationKey = options.paginationKey ?? defPaginationKey
 								total.value = (data.value as any).data[paginationKey.total]
 								current.value = (data.value as any).data[paginationKey.current]
+								pageSize.value = (data.value as any).data[paginationKey.size]
 							}
 						} catch (error) {
 							console.warn('分页参数异常')

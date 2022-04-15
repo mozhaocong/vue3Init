@@ -1,5 +1,6 @@
 import { defineComponent, reactive, ref } from 'vue'
-import { HTFrom, PassWordInput } from '@/components'
+import { RForm, PassWordInput } from '@/components'
+
 import { Button } from 'ant-design-vue'
 import { erpLogin } from '@/store/modules/erp/login'
 
@@ -30,7 +31,7 @@ export default defineComponent({
 		return () => (
 			<div>
 				<div style="width:200px;margin: auto;">
-					<HTFrom
+					<RForm
 						fid="login"
 						rows={rows}
 						model={data.value}

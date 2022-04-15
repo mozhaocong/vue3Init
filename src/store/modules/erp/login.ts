@@ -9,7 +9,6 @@ class Login extends VuexModule {
 	@Action
 	public async onLogin(data?: ObjectMap) {
 		const res: any = await authorizations(data || {})
-		console.log(res)
 		if (!res.code) {
 			this.SET_TOKEN(res.data.token_type + ' ' + res.data.access_token)
 		}

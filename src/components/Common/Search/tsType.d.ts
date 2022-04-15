@@ -18,5 +18,6 @@ interface SearchRow extends SearchRowConf {
 	component?: any
 	slotName?: string
 	props?: ObjectMap | (() => ObjectMap)
+	commonly?: { type: string; value: string | ObjectMap | any[][] }
 }
 type SearchRowArray = SearchRow[]

@@ -27,7 +27,6 @@ export function axiosInit() {
 
 	axios.interceptors.response.use(
 		(response) => {
-			console.log(response)
 			if (response.status == 200) {
 				return Promise.resolve(response)
 			} else {

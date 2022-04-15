@@ -1,14 +1,15 @@
 import { pick } from 'ramda'
 import { ref } from 'vue'
 import { Pagination } from 'ant-design-vue'
+import { ParamsPaginationKey } from '@/components/Common/Search/hooks/UseRequest'
 
 export enum PageType {
 	new,
 }
-export interface getPaginationDto {
-	current: number
-	size: number
-}
+// export interface getPaginationDto {
+// 	current: number
+// 	size: number
+// }
 export interface Pagination {
 	showTotal?: (total: number) => string
 	pageSizeOptions?: Array<string>
@@ -17,24 +18,31 @@ export interface Pagination {
 }
 
 export interface DefaultConfig extends Pagination {
-	pageSize: number
+	pageSize?: number
 }
+
 /**
  * 集成分页
  * @param search
+ * @param defaultConfig
+ * @param paramsPaginationKey
  * @returns
  */
-export function usePagination(search: (type?: PageType) => void, defaultConfig?: DefaultConfig) {
+export function usePagination(
+	search: (type?: PageType) => void,
+	paramsPaginationKey: ParamsPaginationKey,
+	defaultConfig?: DefaultConfig,
+) {
 	const total = ref(0)
-	const pageSize = ref(defaultConfig?.pageSize ?? 10)
+	const pageSize = ref(10)
 	const current = ref(0)
-	function getPagination(is = false): getPaginationDto {
+	function getPagination(is = false): ObjectMap {
 		if (is) {
 			current.value = 1
 		}
 		return {
-			current: current.value,
-			size: pageSize.value,
+			[paramsPaginationKey.current]: current.value,
+			[paramsPaginationKey.size]: pageSize.value,
 		}
 	}
 	function handleSizeChange(index: number, size: number) {

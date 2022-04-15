@@ -1,5 +1,6 @@
-import { isTrue, isString } from './typeJudgment'
-import { deepClone } from './data'
+import { isTrue, isString, isObject, isArray } from './modules/tools/index'
+import { deepClone } from './modules/data'
+import { configCurryFilter, configFilter } from './modules/business/filter/index'
 
 import { message } from 'ant-design-vue'
 
@@ -16,4 +17,4 @@ export function copyText(text: string) {
 	return res
 }
 
-export { isTrue, isString, deepClone }
+export { isTrue, isString, deepClone, isObject, isArray, configCurryFilter, configFilter }

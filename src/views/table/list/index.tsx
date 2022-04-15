@@ -1,88 +1,70 @@
 import { defineComponent, ref } from 'vue'
-import { Common, PassWordInput } from '@/components'
+import { Common, RSearch, RTable } from '@/components'
 import { purchase_orders } from '@/api/erp/purchase'
-const { useSearch, useRequest, Rsearch } = Common
+import { SearchRow, TableRow } from '@/views/table/list/util'
+import Modules from './modules'
+const { useSearch, useRequest, commonly } = Common
 export default defineComponent({
-	name: 'test',
+	name: 'table11',
 	setup() {
-		const row = ref<SearchRowArray>([
-			{
-				title: '订单编号',
-				key: 'soOrderNo',
-				component: 'a-input',
-				props: {
-					allowClear: true,
-				},
+		const { expand, expandToggle, searchForm } = useSearch<ObjectMap>({})
+		const pageSate = ref({
+			createBy: {
+				isSearch: true,
+				slotType: 'selectOption',
+				slotList: [
+					{ label: '创建人', key: 'createBy', component: 'a-input' },
+					{ label: '当前处理人', key: 'currentHandler', component: 'a-input' },
+				],
+				selectKey: 'createBy',
+				value: {},
 			},
-			{
-				title: '来源单号1',
-				key: 'spOrderNo1',
-				component: 'a-input',
-				props: {
-					allowClear: true,
-				},
-			},
-			{
-				title: '来源单号',
-				key: 'spOrderNo',
-				component: 'a-input',
-				props: {
-					allowClear: true,
-				},
-			},
-			{
-				title: '来源单号',
-				key: 'spOrderNo',
-				component: 'a-input',
-				props: {
-					allowClear: true,
-				},
-			},
-		])
-		setTimeout(() => {
-			row.value.push({
-				title: '来源单号',
-				key: 'spOrderNo',
-				component: 'a-input',
-				props: {
-					allowClear: true,
-				},
-			})
-		}, 1000)
+		}) // 搜索表单的特殊参数数据列表
+		const searchRow = new SearchRow(searchForm).data // 搜索表单的数据列表
+		const tableRow = new TableRow({ operation }).data // 表单的数据列表
+		const moduleState = ref({}) //表单操作列 操作modules组件的参数
+		function operation(item: ObjectMap) {
+			moduleState.value = item
+		}
 		const { run, data, renderPagination, getPagination, loading, refresh } = useRequest(purchase_orders, {
 			manual: true,
 			pagination: true,
 			defaultParams: [[]],
-			onSuccess: (value) => {
-				console.log(value)
+			paramsPaginationKey: {
+				size: 'size',
+				current: 'page',
 			},
 		})
-		setTimeout(() => {
-			console.log(data.value)
-		}, 1000)
-		const { expand, expandToggle, searchForm } = useSearch<ObjectMap>({})
-		function RClear() {
-			console.log(1)
-		}
-		function rSearch() {
-			console.log(2)
-		}
+
+		const { searchSlots, rSearch, rClear } = commonly({
+			pageSate,
+			searchForm,
+			searchRows: searchRow,
+			run,
+			getPagination,
+		})
+
 		return () => (
-			<Rsearch
-				labelCol={{ span: 8 }}
-				wrapperCol={{ span: 14 }}
-				searchKey="errorStatisticsReport"
-				clear={RClear}
-				// loading={loading.value}
-				search={rSearch}
-				expand={{
-					value: expand.value,
-					expandToggle,
-				}}
-				v-slots={{}}
-				model={searchForm.value}
-				rows={row.value}
-			/>
+			<>
+				<RSearch
+					searchKey="errorStatisticsReport"
+					clear={rClear}
+					loading={loading.value}
+					search={rSearch}
+					expand={{
+						value: expand.value,
+						expandToggle,
+					}}
+					v-slots={{
+						...searchSlots(true),
+					}}
+					model={searchForm.value}
+					rows={searchRow}
+				/>
+				<RTable dataSource={data.value?.data?.items} columns={tableRow} {...{ loading: loading.value }} />
+				{renderPagination()}
+				<Modules v-model={[moduleState.value, 'value']} />
+			</>
 		)
 	},
 })

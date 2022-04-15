@@ -51,11 +51,11 @@ const Props = {
 		type: String as PropType<string>,
 		default: 'r-form',
 	},
-	finish: Function as PropType<() => void>,
-	finishFailed: Function as PropType<() => void>,
+	finish: Function as PropType<(item?: any) => void>,
+	finishFailed: Function as PropType<(item?: any) => void>,
 } as const
 const _From = defineComponent({
-	name: 'HFrom',
+	name: 'RFrom',
 	props: Props,
 	setup(props, { slots }) {
 		const formRef = ref()

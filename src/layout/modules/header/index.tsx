@@ -1,23 +1,23 @@
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import router from '@/router'
 
 export default defineComponent({
 	name: 'Header',
 	setup() {
 		function menuChange(item: any) {
-			if (item.key === '1') {
-				router.push('/test')
-			} else {
-				router.push('/login')
-			}
+			console.log(item)
 		}
+		const list = ref<ObjectMap[]>([
+			{ title: '采购', name: 'purchase' },
+			{ title: '订单', name: 'oms' },
+		])
 		return () => (
 			<a-layout-header class="header">
 				<div class="logo" />
 				<a-menu theme="dark" mode="horizontal" onClick={menuChange}>
-					<a-menu-item key="1">nav 1</a-menu-item>
-					<a-menu-item key="2">nav 2</a-menu-item>
-					<a-menu-item key="3">nav 3</a-menu-item>
+					{list.value.map((item) => {
+						return <a-menu-item key={item.name}>{item.title}</a-menu-item>
+					})}
 				</a-menu>
 			</a-layout-header>
 		)
