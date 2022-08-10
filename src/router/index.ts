@@ -7,14 +7,12 @@ const routes: Array<RouteRecordRaw> = [
 		path: '/',
 		name: 'index',
 		component: () => import('@/layout/index'),
-		children: [
-			{
-				path: '/test',
-				name: 'test',
-				meta: { keepAlive: true },
-				component: () => import('@/views/test'),
-			},
-		],
+	},
+	{
+		path: '/test',
+		name: 'test',
+		meta: { keepAlive: true },
+		component: () => import('@/views/test'),
 	},
 	{
 		path: '/login',

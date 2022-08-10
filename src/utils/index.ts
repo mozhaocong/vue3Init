@@ -1,5 +1,3 @@
-import { isTrue, isString, isObject, isArray } from './modules/tools/index'
-import { deepClone } from './modules/data'
 import { configCurryFilter, configFilter } from './modules/business/filter/index'
 
 import { message } from 'ant-design-vue'
@@ -17,4 +15,40 @@ export function copyText(text: string) {
 	return res
 }
 
-export { isTrue, isString, deepClone, isObject, isArray, configCurryFilter, configFilter }
+export {
+	arrayObjectJudgeNullObject,
+	axiosInit,
+	axiosPost,
+	axiosGet,
+	isArray,
+	dayJsDataToString,
+	dataNumberToString,
+	serialNumber,
+	setArrayData,
+	setArrayFilter,
+	setObjetToObject,
+	isBlob,
+	isFunctionOfOther,
+	isNumber,
+	isFunction,
+	isObject,
+	isString,
+	isTrue,
+	deepClone,
+	debounce,
+	getArrayFilterData,
+	methodType,
+	forArrayData,
+	EventBus,
+	throttle,
+	arrayKeyToMap,
+	arrayKeyToObject,
+	arrayObjectIncludes,
+	objectToArray,
+	arrayGetData,
+	objectFilterEmpty,
+	isBoolean,
+	getSearchString,
+} from '@ht/html-tool'
+
+export { configCurryFilter, configFilter }
