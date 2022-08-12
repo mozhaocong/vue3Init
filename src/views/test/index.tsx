@@ -9,6 +9,7 @@ export default defineComponent({
 		console.log(dayjs('2011-11-12', 'YY-MM-DD').isValid())
 		const data = ref()
 		async function testClick() {
+			console.trace('testClick')
 			// console.log('data', data.value)
 			// console.log('dayjs', dayjs(data.value).format('YY-MM-DD'))
 			// const res = await axiosGet('http://127.0.0.1:7001/user/findAll')
@@ -17,6 +18,7 @@ export default defineComponent({
 				id: 1,
 				title: '12616',
 				name: false,
+				age: 1256,
 				// data: dayjs(data.value).format('YY-MM-DD'),
 				date: '2011-12-11',
 			})
