@@ -40,6 +40,15 @@ export default defineComponent({
 			localStorage.setItem('token', token)
 		}
 
+		async function createUser() {
+			const data = {
+				name: 'test1',
+				age: 2,
+			}
+			const res = await axiosPost('http://127.0.0.1:7001/user/create', data)
+			console.log(res)
+		}
+
 		return () => (
 			<>
 				<DatePicker v-model={[data.value, 'value']} />
@@ -48,6 +57,9 @@ export default defineComponent({
 				</Button>
 				<Button type="primary" onClick={testClick1}>
 					登录接口
+				</Button>
+				<Button type="primary" onClick={createUser}>
+					创建用户
 				</Button>
 			</>
 		)
