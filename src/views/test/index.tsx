@@ -22,8 +22,8 @@ export default defineComponent({
 					size: '10',
 					title: '12616',
 					page: 1,
-					name: '张三',
-					age: '1256xbzb',
+					// name: '张三',
+					// age: '1256xbzb',
 					// data: dayjs(data.value).format('YY-MM-DD'),
 					// updated_at: '2011-12-11',
 				},
@@ -33,7 +33,6 @@ export default defineComponent({
 		}
 
 		async function testClick1() {
-			console.log('asbana')
 			const res = await axiosPost('http://127.0.0.1:7001/admin/login', {})
 			console.log(res)
 			const { token } = res.data
@@ -43,7 +42,7 @@ export default defineComponent({
 		async function createUser() {
 			const data = {
 				name: 'test1',
-				age: 2,
+				age: 10,
 			}
 			const res = await axiosPost('http://127.0.0.1:7001/user/create', data)
 			console.log(res)
