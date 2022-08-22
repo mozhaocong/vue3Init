@@ -5,27 +5,18 @@ import dayjs from 'dayjs'
 export default defineComponent({
 	name: 'test',
 	setup() {
+		const token = localStorage.getItem('token') || ''
 		console.log(dayjs('151', 'YY-MM-DD'))
 		console.log(dayjs('2011-11-12', 'YY-MM-DD').isValid())
-		const data = ref()
 		async function testClick() {
 			console.trace('testClick')
-			// console.log('data', data.value)
-			// console.log('dayjs', dayjs(data.value).format('YY-MM-DD'))
-			// const res = await axiosGet('http://127.0.0.1:7001/user/findAll')
-			const token = localStorage.getItem('token') || ''
 			const res = await axiosGet(
 				'http://127.0.0.1:7001/user/findParams',
 				{
-					// const res = await axiosPost('http://127.0.0.1:7001/user/create', {
 					id: 1,
 					size: '10',
 					title: '12616',
 					page: 1,
-					// name: '张三',
-					// age: '1256xbzb',
-					// data: dayjs(data.value).format('YY-MM-DD'),
-					// updated_at: '2011-12-11',
 				},
 				{ headers: { token } },
 			)
@@ -48,19 +39,39 @@ export default defineComponent({
 			console.log(res)
 		}
 
+		async function groupCreate() {
+			const data = {
+				groupName: 'test1',
+			}
+			const res = await axiosPost('http://127.0.0.1:7001/group/create', data, { headers: { token } })
+			console.log(res)
+		}
+		async function groupCheck() {
+			const res = await axiosGet(
+				'http://127.0.0.1:7001/group/findParams',
+				{
+					size: '10',
+					page: 1,
+				},
+				{ headers: { token } },
+			)
+			console.log('res', res)
+		}
+
 		return () => (
-			<>
-				<DatePicker v-model={[data.value, 'value']} />
-				<Button type="primary" onClick={testClick}>
-					111
-				</Button>
+			<div style="display: flex;justify-content: space-around;">
 				<Button type="primary" onClick={testClick1}>
 					登录接口
+				</Button>
+				<Button type="primary" onClick={testClick}>
+					用户查询接口
 				</Button>
 				<Button type="primary" onClick={createUser}>
 					创建用户
 				</Button>
-			</>
+				<Button onClick={groupCreate}>创建群组</Button>
+				<Button onClick={groupCheck}>查看群组</Button>
+			</div>
 		)
 	},
 })
