@@ -67,18 +67,41 @@ export default defineComponent({
 
 		async function createUserRole() {
 			const data = {
-				name: '用户角色添加111',
+				name: '用户角色添加112',
 				age: 10,
-				email: '12345263231@163.com',
+				email: '123452632311@163.com',
 				password: '123456',
-				// roleList: [
-				// 	{
-				// 		roleName: '用户角色添加',
-				// 	},
-				// ],
+				roleList: [
+					{
+						id: 4,
+						roleName: '用户角色添加1',
+					},
+				],
 			}
 
 			const res = await axiosPost('http://127.0.0.1:7001/user/create', data)
+		}
+		async function updateUserRole() {
+			const data = {
+				id: 1,
+				name: '8291033',
+				age: 10,
+				email: 'ahah@163.com',
+				password: '123456',
+				roleList: [
+					{
+						id: 4,
+						roleName: '12616',
+					},
+					// { id: 100 },
+					{ id: 1 },
+					// {
+					// 	roleName: '12616',
+					// },
+				],
+			}
+
+			const res = await axiosPost('http://127.0.0.1:7001/user/update', data)
 		}
 
 		// async function destroyUser() {
@@ -123,6 +146,9 @@ export default defineComponent({
 				</Button>
 				<Button type="primary" onClick={createUserRole}>
 					创建用户和角色
+				</Button>
+				<Button type="primary" onClick={updateUserRole}>
+					更新用户和角色
 				</Button>
 			</div>
 		)
