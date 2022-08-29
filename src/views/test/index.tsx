@@ -67,14 +67,19 @@ export default defineComponent({
 
 		async function createUserRole() {
 			const data = {
-				name: '用户角色添加112',
+				// name: Date.now() + '用户角色',
+				name: '1111用户角色',
 				age: 10,
-				email: '123452632311@163.com',
+				email: Date.now() + '@163.com',
 				password: '123456',
 				roleList: [
+					// {
+					// 	id: 4,
+					// 	roleName: '用户角色添加1',
+					// },
 					{
-						id: 4,
-						roleName: '用户角色添加1',
+						// roleName: Date.now() + '用户角色',
+						roleName: '12512612用户角色',
 					},
 				],
 			}
