@@ -5,13 +5,16 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
-    "lint": "eslint src --fix"
+    "lint": "eslint src --fix",
+    "node_setUtils": "npx ts-node ./node/src/setutils.ts"
   },
   "dependencies": {
     "ant-design-vue": "^3.0.0-alpha.11",
     "axios": "^0.22.0",
     "clipboard": "^2.0.8",
+    "html-mzc-tool": "^1.0.42",
     "ramda": "^0.27.1",
+    "ts-node": "^10.9.1",
     "vue": "^3.2.6",
     "vue-router": "^4.0.11",
     "vue3-json-viewer": "^1.0.4",
@@ -19,6 +22,7 @@
     "vuex-module-decorators": "^1.0.1"
   },
   "devDependencies": {
+    "@types/node": "^18.7.23",
     "@types/ramda": "^0.27.50",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.31.0",
@@ -34,7 +38,6 @@
     "eslint-plugin-vue": "^7.6.0",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
-    "node-sass": "^6.0.1",
     "prettier": "^2.2.1",
     "sass-loader": "^12.3.0",
     "typescript": "^4.1.3",
